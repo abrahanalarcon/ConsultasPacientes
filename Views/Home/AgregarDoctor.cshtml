@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Agregar Doctor";
+}
+
+
+<div asp-validation-summary="All" class="text-danger" ></div>
+
+<form asp-controller="Home" asp-action="AgregarDoctor" method="post">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" />
+
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" />
+
+    </div>
+    
+
+
+    <button type="submit" class="btn btn-primary"> Agregar</button>
+
+
+</form>
+
+
+

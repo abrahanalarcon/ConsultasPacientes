@@ -1,0 +1,45 @@
+﻿@model List<ConsultasPacientes12.Models.Doctor>
+@{
+    ViewData["Title"] = "Registro Doctor";
+}
+<h2 class="text-center">Pacientes</h2>
+
+@* <p class="text-center text-gray-600 mt-3">No hay Clientes</p> *@
+
+<div class="mt-3">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th class="border-top-0" scope="col">Nombre</th>
+                    <th class="border-top-0" scope="col">Apellido</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody id="listado-clientes">
+                @foreach (var doctor in Model)
+                {
+                    <tr>
+                        <td>
+                           @doctor.Nombre
+
+                        </td>
+                        <td>
+                            @doctor.Apellido
+
+                        </td>
+                        
+                        @*                     <td>
+
+                    @paciente.IdDoctorNavigation.Nombre
+
+                    </td> *@
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Agregar Paciente";
+}
+
+
+<div asp-validation-summary="All" class="text-danger" exclude="IdDoctorNavigation.Nombre"></div>
+
+
+<form asp-controller="Home" asp-action="AgregarPaciente" method="post">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" />
+       
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" />
+        
+    </div>
+    <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="telefono" name="Telefono" placeholder="829-000-0000" />
+        
+    </div>
+    <div class="mb-3">
+        <label for="cedula" class="form-label">Cédula</label>
+        <input type="text" class="form-control" id="cedula" name="Cedula" placeholder="402-0000000-0" />
+        
+    </div>
+    <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" />
+        
+    </div>
+    <div class="mb-3">
+        <label for="doctor" class="form-label">Doctor</label>
+        <select class="form-select" id="doctor" name="IdDoctor">
+            <option value="">Seleccionar Doctor</option>
+            @foreach (var doctor in ViewBag.Doctors)
+            {
+                <option value="@doctor.Id">@doctor.Nombre @doctor.Apellido</option>
+            }
+        </select>
+    </div>
+   
+
+    
+  
+    <button type="submit" class="btn btn-primary"> Agregar</button>
+
+
+</form>
+
+

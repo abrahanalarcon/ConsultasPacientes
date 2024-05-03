@@ -1,0 +1,51 @@
+﻿@model ConsultasPacientes12.Models.Paciente
+
+@{
+    ViewData["Title"] = "Modificar Paciente";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-controller="Home" asp-action="ModificarPaciente" method="post">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" value="@Model.Nombre"  />
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" value="@Model.Apellido" />
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" name="Telefono" placeholder="829-000-0000" value="@Model.Telefono" />
+        </div>
+
+        <div class="mb-3">
+            <label for="cedula" class="form-label">Cédula</label>
+            <input type="text" class="form-control" id="cedula" name="Cedula" placeholder="402-0000000-0" value="@Model.Cedula" />
+        </div>
+
+        <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" value="@Model.FechaNacimiento.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Doctor</label>
+            <select class="form-select" id="doctor" name="IdDoctor">
+                <option value="">Seleccionar Doctor</option>
+                @foreach (var doctor in ViewBag.Doctors)
+                {
+                    <option value="@doctor.Id">@doctor.Nombre @doctor.Apellido</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Modificar</button>
+    </form>
+</div>
