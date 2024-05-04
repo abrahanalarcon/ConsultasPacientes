@@ -33,7 +33,7 @@
 
         <div class="mb-3">
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-            <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento"  />
+            <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento"  required/>
         </div>
 
 
@@ -41,7 +41,7 @@
 
         <div class="mb-3">
             <label for="doctor" class="form-label">Doctor</label>i
-            <select class="form-select" id="doctor" name="IdDoctor">
+            <select class="form-select" id="doctor" name="IdDoctor" required>
                 <option value="">Seleccionar Doctor</option>
                 @foreach (var doctor in ViewBag.Doctors)
                 {

@@ -7,7 +7,7 @@ namespace ConsultasPacientes12.Models;
 public partial class Paciente
 {
     public int Id { get; set; }
-    [Required(ErrorMessage = "El campo {0} es obligatorio")]
+    [Required(ErrorMessage = "El campo Nombre es obligatorio")]
     public string Nombre { get; set; } = null!;
     [Required(ErrorMessage = "El campo {0} es obligatorio")]
     public string Apellido { get; set; } = null!;

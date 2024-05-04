@@ -1,4 +1,5 @@
-﻿
+﻿@model ConsultasPacientes12.Models.Paciente  // Cambia el modelo a solo un paciente
+
 @{
     ViewData["Title"] = "Agregar Paciente";
 }
@@ -11,34 +12,32 @@
 <form asp-controller="Home" asp-action="AgregarPaciente" method="post">
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" />
-       
+        <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" required />
+
     </div>
     <div class="mb-3">
         <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" />
-       
-        
+        <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" required />
+
     </div>
     <div class="mb-3">
         <label for="telefono" class="form-label">Teléfono</label>
-        <input type="text" class="form-control" id="telefono" name="Telefono" placeholder="829-000-0000" />
-        
-        
+        <input type="text" class="form-control" id="telefono" name="Telefono" placeholder="829-000-0000" required />
+
     </div>
     <div class="mb-3">
         <label for="cedula" class="form-label">Cédula</label>
-        <input type="text" class="form-control" id="cedula" name="Cedula" placeholder="402-0000000-0" />
-        
+        <input type="text" class="form-control" id="cedula" name="Cedula" placeholder="402-0000000-0" required />
+
     </div>
     <div class="mb-3">
         <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-        <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" />
-        
+        <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" required />
+
     </div>
     <div class="mb-3">
         <label for="doctor" class="form-label">Doctor</label>
-        <select class="form-select" id="doctor" name="IdDoctor">
+        <select class="form-select" id="doctor" name="IdDoctor" required>
             <option value="">Seleccionar Doctor</option>
             @foreach (var doctor in ViewBag.Doctors)
             {
@@ -46,13 +45,31 @@
             }
         </select>
     </div>
-   
 
-   @*  comentario *@
-  
-    <button type="submit" class="btn btn-primary"> Agregar</button>
-
-
+    <button type="submit" id="btnEnviar" class="btn btn-primary" disabled>Agregar</button>
 </form>
 
+@section Scripts {
+    <script>
+        // Ejecutar cuando el DOM haya cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Selecciona todos los campos requeridos
+            var camposRequeridos = document.querySelectorAll('[required]');
 
+            // Agrega un event listener para escuchar cambios en los campos requeridos
+            camposRequeridos.forEach(function (campo) {
+                campo.addEventListener('input', function () {
+                    var todosLlenos = true;
+                    camposRequeridos.forEach(function (campo) {
+                        // Verifica si algún campo requerido está vacío
+                        if (campo.value.trim() === '') {
+                            todosLlenos = false;
+                        }
+                    });
+                    // Habilita o deshabilita el botón de enviar según si todos los campos están llenos
+                    document.getElementById('btnEnviar').disabled = !todosLlenos;
+                });
+            });
+        });
+    </script>
+}
