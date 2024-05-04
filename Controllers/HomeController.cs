@@ -88,28 +88,72 @@ namespace ConsultasPacientes12.Controllers
                 return View(doctor);
             }
         }
+        //[HttpPost]
+        //public IActionResult ModificarPaciente(Paciente paciente)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _Econtext.Pacientes.Update(paciente);
+        //            _Econtext.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("", "Ocurrió un error al modificar el paciente: " + ex.Message);
+        //            ViewBag.Doctors = _Econtext.Doctors.ToList();
+        //            return View("ModificarPaciente", paciente);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ViewBag.Doctors = _Econtext.Doctors.ToList();
+        //        return View("ModificarPaciente", paciente);
+        //    }
+        //}
+        [HttpGet]
+        public IActionResult ModificarPaciente(int id)
+        {
+            try
+            {
+                Paciente? paciente = _Econtext.Pacientes.Find(id);
+                if (paciente == null) return NotFound();
+
+
+                ViewBag.Doctors = _Econtext.Doctors.ToList();
+                return View(paciente);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         [HttpPost]
         public IActionResult ModificarPaciente(Paciente paciente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (!ModelState.IsValid)
                 {
-                    _Econtext.Pacientes.Update(paciente);
-                    _Econtext.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Ocurrió un error al modificar el paciente: " + ex.Message);
                     ViewBag.Doctors = _Econtext.Doctors.ToList();
-                    return View("ModificarPaciente", paciente);
+                    return View(paciente);
                 }
+
+                // Realiza las operaciones de actualización en la base de datos aquí
+                _Econtext.Update(paciente);
+                _Econtext.SaveChanges();
+
+                // Redirige al usuario a la vista de índice después de la modificación
+                return RedirectToAction("Index");
             }
-            else
+            catch (Exception)
             {
-                ViewBag.Doctors = _Econtext.Doctors.ToList();
-                return View("ModificarPaciente", paciente);
+                throw;
             }
         }
 

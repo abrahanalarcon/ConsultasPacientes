@@ -39,10 +39,8 @@
                         <td>@paciente.FechaNacimiento</td>
                         <td>@(paciente.IdDoctorNavigation != null ? paciente.IdDoctorNavigation.Nombre + " " + paciente.IdDoctorNavigation.Apellido : "Sin doctor asignado")</td>
                         <td>
-                            <form asp-controller="Home" asp-action="ModificarPaciente" method="post">
-                                <input type="hidden" name="id" value="@paciente.Id" />
-                                <button type="submit" class="btn btn-primary">Modificar</button>
-                            </form>
+                            <button onclick="modificarPaciente(@paciente.Id)" class="btn btn-primary">Editar</button>
+
                         </td>
                         <td>
                             <button onclick="eliminarPaciente(@paciente.Id)" class="btn btn-danger">Eliminar</button>
@@ -58,6 +56,25 @@
 
 @section Scripts {
     <script>
+        function modificarPaciente(id) {
+            // Realizar una solicitud GET al servidor para modificar el paciente
+            $.ajax({
+                url: '/Home/ModificarPaciente',
+                type: 'GET',
+                data: { id: id },
+                success: function (result) {
+                    // Manejar la respuesta del servidor si es necesario
+                    console.log('Paciente modificado correctamente');
+                    // Redirigir a la página de modificación si es necesario
+                    window.location.href = '/Home/ModificarPaciente?id=' + id;
+                },
+                error: function (xhr, status, error) {
+                    // Manejar errores si es necesario
+                    console.error(error);
+                }
+            });
+        }
+
         function eliminarPaciente(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este paciente?')) {
                 $.ajax({
