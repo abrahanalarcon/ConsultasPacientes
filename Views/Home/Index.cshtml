@@ -6,52 +6,49 @@
 
 <h2 class="text-center">Pacientes</h2>
 
-@* <p class="text-center text-gray-600 mt-3">No hay Clientes</p> *@
-
-<div class="mt-3">
-    <div class="table-responsive">
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th class="border-top-0" scope="col">Nombre</th>
-                    <th class="border-top-0" scope="col">Apellido</th>
-                    <th class="border-top-0" scope="col">Teléfono</th>
-                    <th class="border-top-0" scope="col">Cedula</th>
-                    <th class="border-top-0" scope="col">Fecha de Nacimiento</th>
-                    <th class="border-top-0" scope="col">Doctor</th>
-                    <th></th>
-
-                </tr>
-            </thead>
-
-            <tbody id="listado-clientes">  
-
-
- 
-              
-               @foreach (var paciente in ViewBag.Pacientes)
+@if (Model != null && Model.Count > 0)
 {
-                    <tr id="fila-@paciente.Id">
-                        <td>@paciente.Nombre</td>
-                        <td>@paciente.Apellido</td>
-                        <td>@paciente.Telefono</td>
-                        <td>@paciente.Cedula</td>
-                        <td>@paciente.FechaNacimiento</td>
-                        <td>@(paciente.IdDoctorNavigation != null ? paciente.IdDoctorNavigation.Nombre + " " + paciente.IdDoctorNavigation.Apellido : "Sin doctor asignado")</td>
-                        <td>
-                            <button onclick="modificarPaciente(@paciente.Id)" class="btn btn-primary">Editar</button>
-
-                        </td>
-                        <td>
-                            <button onclick="eliminarPaciente(@paciente.Id)" class="btn btn-danger">Eliminar</button>
-                        </td>
+    <div class="mt-3">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-top-0" scope="col">Nombre</th>
+                        <th class="border-top-0" scope="col">Apellido</th>
+                        <th class="border-top-0" scope="col">Teléfono</th>
+                        <th class="border-top-0" scope="col">Cedula</th>
+                        <th class="border-top-0" scope="col">Fecha de Nacimiento</th>
+                        <th class="border-top-0" scope="col">Doctor</th>
+                        <th></th>
                     </tr>
-                }
-
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="listado-clientes">
+                    @foreach (var paciente in Model)
+                    {
+                        <tr id="fila-@paciente.Id">
+                            <td>@paciente.Nombre</td>
+                            <td>@paciente.Apellido</td>
+                            <td>@paciente.Telefono</td>
+                            <td>@paciente.Cedula</td>
+                            <td>@paciente.FechaNacimiento</td>
+                            <td>@(paciente.IdDoctorNavigation != null ? paciente.IdDoctorNavigation.Nombre + " " + paciente.IdDoctorNavigation.Apellido : "Sin doctor asignado")</td>
+                            <td>
+                                <button onclick="modificarPaciente(@paciente.Id)" class="btn btn-primary">Editar</button>
+                            </td>
+                            <td>
+                                <button onclick="eliminarPaciente(@paciente.Id)" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <p class="text-center text-gray-600 mt-3">No hay Pacientes</p>
+}
 
 
 @section Scripts {
