@@ -81,7 +81,7 @@ namespace ConsultasPacientes12.Controllers
 
                 ViewBag.Doctors = _Econtext.Doctors.ToList();
 
-                return RedirectToAction("RegistroDoctor"); // Redirige a la vista "RegistroDoctor"
+                return RedirectToAction("RegistroDoctor"); 
             }
             else
             {
@@ -89,20 +89,30 @@ namespace ConsultasPacientes12.Controllers
             }
         }
         [HttpPost]
-        public IActionResult ModificarPaciente(int id)
+        public IActionResult ModificarPaciente(Paciente paciente)
         {
-            var paciente = _Econtext.Pacientes.Find(id);
-
-            if (paciente == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                try
+                {
+                    _Econtext.Pacientes.Update(paciente);
+                    _Econtext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Ocurrió un error al modificar el paciente: " + ex.Message);
+                    ViewBag.Doctors = _Econtext.Doctors.ToList();
+                    return View("ModificarPaciente", paciente);
+                }
             }
-
-            // Obtener la lista de doctores y pasarla a la vista
-            ViewBag.Doctors = _Econtext.Doctors.ToList();
-
-            return View("ModificarPaciente", paciente);
+            else
+            {
+                ViewBag.Doctors = _Econtext.Doctors.ToList();
+                return View("ModificarPaciente", paciente);
+            }
         }
+
 
         [HttpPost]
         public IActionResult EliminarPaciente(int id)
@@ -112,18 +122,27 @@ namespace ConsultasPacientes12.Controllers
             {
                 return NotFound();
             }
-            else
+
+            try
             {
                 _Econtext.Pacientes.Remove(paciente);
                 _Econtext.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
-
-
+                // Actualizar la lista de pacientes en ViewBag
+                ViewBag.Pacientes = _Econtext.Pacientes.ToList();
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores
+                ModelState.AddModelError("", "Error al eliminar el paciente: " + ex.Message);
             }
 
-
+            // Devolver la vista Index
+            return View("Index", ViewBag.Pacientes);
         }
+
+
+
 
 
 

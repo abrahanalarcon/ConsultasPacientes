@@ -25,10 +25,13 @@
             </thead>
 
             <tbody id="listado-clientes">  
+
+
+ 
               
-                @foreach (var paciente in ViewBag.Pacientes)
-                {
-                    <tr>
+               @foreach (var paciente in ViewBag.Pacientes)
+{
+                    <tr id="fila-@paciente.Id">
                         <td>@paciente.Nombre</td>
                         <td>@paciente.Apellido</td>
                         <td>@paciente.Telefono</td>
@@ -42,10 +45,7 @@
                             </form>
                         </td>
                         <td>
-                            <form asp-controller="Home" asp-action="Eliminar" method="post">
-                                <input type="hidden" name="id" value="@paciente.Id" />
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
+                            <button onclick="eliminarPaciente(@paciente.Id)" class="btn btn-danger">Eliminar</button>
                         </td>
                     </tr>
                 }
@@ -55,3 +55,27 @@
     </div>
 </div>
 
+
+@section Scripts {
+    <script>
+        function eliminarPaciente(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este paciente?')) {
+                $.ajax({
+                    url: '/Home/EliminarPaciente',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (result) {
+                        // Eliminar la fila de la tabla
+                        $('#fila-' + id).remove();
+                        // Actualizar cualquier otra interfaz de usuario si es necesario
+                        // ...
+                    },
+                    error: function (xhr, status, error) {
+                        // Manejar errores si es necesario
+                        console.error(error);
+                    }
+                });
+            }
+        }
+    </script>
+}

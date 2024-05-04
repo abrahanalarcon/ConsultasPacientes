@@ -7,17 +7,18 @@
 <div class="container">
     <h2>@ViewData["Title"]</h2>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+    
 
     <form asp-controller="Home" asp-action="ModificarPaciente" method="post">
+        <input type="hidden" asp-for="Id" /> 
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre" value="@Model.Nombre"  />
+            <input type="text" class="form-control" asp-for="Nombre" placeholder="Nombre" value="@Model.Nombre" />
         </div>
 
         <div class="mb-3">
             <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido" value="@Model.Apellido" />
+            <input type="text" class="form-control" asp-for="Apellido" placeholder="Apellido" />
         </div>
 
         <div class="mb-3">
@@ -32,8 +33,11 @@
 
         <div class="mb-3">
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-            <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento" value="@Model.FechaNacimiento.ToString("yyyy-MM-dd")" />
+            <input type="date" class="form-control" id="fechaNacimiento" name="FechaNacimiento"  />
         </div>
+
+
+
 
         <div class="mb-3">
             <label for="doctor" class="form-label">Doctor</label>
@@ -46,6 +50,9 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Modificar</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Modificar</button>
+        </div>
     </form>
 </div>
+
